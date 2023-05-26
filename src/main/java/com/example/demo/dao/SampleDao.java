@@ -20,7 +20,9 @@ public class SampleDao {
 	}
 
 	public void insertDb(EntForm entform) {
-		db.update("INSERT INTO task(taskName,comment) VALUES(?,?)", entform.getTaskName(), entform.getComment());
+//		db.update("INSERT INTO task(taskName,comment) VALUES(?,?)", entform.getTaskName(), entform.getComment());
+		db.update("INSERT INTO task(taskType,taskName, dueDate,comment) VALUES(?,?,?,?)",
+				entform.getTaskType(), entform.getTaskName(),entform.getDueDate(), entform.getComment());
 	}
 
 
@@ -33,6 +35,7 @@ public class SampleDao {
 			EntForm entformItem = new EntForm();
 
 			entformItem.setId((int) record.get("id"));
+			entformItem.setTaskType((String) record.get("taskType"));
 			entformItem.setTaskName((String) record.get("taskName"));
 			entformItem.setComment((String) record.get("comment"));
 
@@ -67,6 +70,25 @@ public class SampleDao {
 	public void updateSample(Long id, EntForm entform) {
 		System.out.println("編集の実行");
 		db.update("UPDATE task SET taskName = ?,comment = ? WHERE id = ?",entform.getTaskName(),entform.getComment(),  id);
+	}
+	
+	
+	//検索
+	public List<EntForm> getSearch(String taskType) {
+
+		List<Map<String, Object>> queryResult = db.queryForList("SELECT * FROM task WHERE taskType =?",taskType);
+		List<EntForm> dataList = new ArrayList<EntForm>();
+
+		for (Map<String, Object> record : queryResult) {
+			EntForm entformItem = new EntForm();
+
+			entformItem.setId((int) record.get("id"));
+			entformItem.setTaskName((String) record.get("taskName"));
+			entformItem.setComment((String) record.get("comment"));
+
+			dataList.add(entformItem);
+		}
+		return dataList;
 	}
 
 }

@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<title>Hello</title>
+	<meta charset="utf-8" />
+	<link rel="stylesheet" th:href="@{/style.css}">
+</head>
+
+<body>
+	<h1 th:text="${title}"></h1>
+	<table>
+		<tr>
+			<th>id</th>
+			<th>タスクの種類</th>
+			<th>タスク</th>
+			<th>期日</th>
+			<th>コメント</th>
+		</tr>
+		<tr th:each="res : ${dbList}">
+			<td th:text="${res.id}">1</td>
+			<td th:text="${res.taskType}">タスクの種類</td>
+			<td th:text="${res.taskName}">タスク</td>
+			<td th:text="${res.dueDate}">期日</td>
+			<td th:text="${res.comment}">コメント</td>
+		</tr>
+	</table>
+	<p>
+		<a href="/form" th:href="@{/form}">フォーム入力画面へ</a>
+	</p>
+</body>
+
+</html>

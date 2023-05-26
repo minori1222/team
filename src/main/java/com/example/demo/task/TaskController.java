@@ -43,6 +43,8 @@ public class TaskController {
 	@RequestMapping("/complete")
 	public String complete(Model model, Input input) {
 		EntForm entform = new EntForm();
+		entform.setTaskType(input.getTaskType());
+//		entform.setComment(input.getComment());
 		entform.setTaskName(input.getTaskName());
 		entform.setComment(input.getComment());
 		sampledao.insertDb(entform);
@@ -55,7 +57,7 @@ public class TaskController {
 		List<EntForm> list = sampledao.getAll();
 		model.addAttribute("dbList", list);
 		model.addAttribute("title", "一覧ページ");
-		return "view";
+		return "view1";
 	}
 
 	//削除
@@ -89,5 +91,16 @@ public class TaskController {
 
 		return "redirect:/view";
 	}
+	
 
+	//検索
+	@RequestMapping("/view/{search}")
+	public String Search(@PathVariable("search") String search, Model model) {
+//		taskType="仕事";
+		System.out.println(search);
+		List<EntForm> list = sampledao.getSearch(search);
+		model.addAttribute("dbList", list);
+		model.addAttribute("title", "検索ページ");
+		return "search";
+	}
 }
