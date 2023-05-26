@@ -6,11 +6,11 @@ import jakarta.validation.constraints.NotBlank;
 
 
 public class Input {
-	@NotBlank(message ="文字を入力してください")
-	private String taskName;
 	
 	private String taskType;
-	private LocalDate dueDate;
+	private String dueDate;
+	@NotBlank(message ="文字を入力してください")
+	private String taskName;
 	@NotBlank(message ="文字を入力してください")
 	private String comment;
 
@@ -33,11 +33,13 @@ public class Input {
 		this.taskType = taskType;
 	}
 
-	public LocalDate getDueDate() {
+	
+
+	public String getDueDate() {
 		return dueDate;
 	}
 
-	public void setDueDate(LocalDate dueDate) {
+	public void setDueDate(String dueDate) {
 		this.dueDate = dueDate;
 	}
 

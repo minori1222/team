@@ -4,6 +4,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.sql.Date;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -35,7 +36,10 @@ public class SampleDao {
 
 			entformItem.setId((int) record.get("id"));
 	        
-			entformItem.setDueDate((LocalDate) record.get("dueDate"));
+//			Date sqlDate = (Date) record.get("dueDate");
+//	        LocalDate localDate = sqlDate.toLocalDate();
+//	        entformItem.setDueDate(localDate);
+	        entformItem.setDueDate((String) record.get("dueDate"));
 			entformItem.setTaskType((String) record.get("taskType"));
 			entformItem.setTaskName((String) record.get("taskName"));
 			entformItem.setComment((String) record.get("comment"));
@@ -62,7 +66,10 @@ public class SampleDao {
 			EntForm entformItem = new EntForm();
 			entformItem.setId((int) record.get("id"));
 			
-			entformItem.setDueDate((LocalDate) record.get("dueDate"));
+//			Date sqlDate = (Date) record.get("dueDate");
+//	        LocalDate localDate = sqlDate.toLocalDate();
+//	        entformItem.setDueDate(localDate);
+			entformItem.setDueDate((String) record.get("dueDate"));
 			entformItem.setTaskType((String) record.get("taskType"));
 			entformItem.setTaskName((String) record.get("taskName"));
 			entformItem.setComment((String) record.get("comment"));

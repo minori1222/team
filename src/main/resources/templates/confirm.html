@@ -14,7 +14,7 @@
 		<h2>入力内容確認</h2>
 		<p>タスクの種類：<span th:text="*{taskType}"></span> </p>
 		<p>タスク：<span th:text="*{taskName}"></span> </p>
-		<p>期日：<span th:text="*{dueDate}"></span> </p>
+		<p>期日：<span th:date="*{dueDate}"></span> </p>
 		<p>コメント：<span th:text="*{comment}"></span></p>
 		
 		<form method="get" action="#" th:action="@{/form}">
