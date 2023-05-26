@@ -44,6 +44,8 @@ public class TaskController {
 	public String complete(Model model, Input input) {
 		EntForm entform = new EntForm();
 		entform.setTaskName(input.getTaskName());
+		entform.setTaskType(input.getTaskType());
+		entform.setDueDate(input.getDueDate());
 		entform.setComment(input.getComment());
 		sampledao.insertDb(entform);
 		return "complete";
@@ -79,12 +81,16 @@ public class TaskController {
 	@RequestMapping("/edit/{id}/exe")
 	public String editExe(@PathVariable Long id, Model model, Input input) {
 		EntForm entform = new EntForm();
+		System.out.println(input.getTaskType());
+		System.out.println(input.getDueDate());
 		System.out.println(input.getTaskName());
 		System.out.println(input.getComment());
-
+		
+		entform.setTaskType(input.getTaskType());
+		entform.setDueDate(input.getDueDate());
 		entform.setTaskName(input.getTaskName());
 		entform.setComment(input.getComment());
-
+		
 		sampledao.updateSample(id, entform);
 
 		return "redirect:/view";

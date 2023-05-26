@@ -1,5 +1,6 @@
 package com.example.demo.dao;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -20,7 +21,7 @@ public class SampleDao {
 	}
 
 	public void insertDb(EntForm entform) {
-		db.update("INSERT INTO task(taskName,comment) VALUES(?,?)", entform.getTaskName(), entform.getComment());
+		db.update("INSERT INTO task(taskType,dueDate,taskName,comment) VALUES(?,?,?,?)", entform.getTaskType(),entform.getDueDate(),entform.getTaskName(), entform.getComment());
 	}
 
 
@@ -33,6 +34,9 @@ public class SampleDao {
 			EntForm entformItem = new EntForm();
 
 			entformItem.setId((int) record.get("id"));
+	        
+			entformItem.setDueDate((LocalDate) record.get("dueDate"));
+			entformItem.setTaskType((String) record.get("taskType"));
 			entformItem.setTaskName((String) record.get("taskName"));
 			entformItem.setComment((String) record.get("comment"));
 
@@ -57,6 +61,9 @@ public class SampleDao {
 		for (Map<String, Object> record : queryResult) {
 			EntForm entformItem = new EntForm();
 			entformItem.setId((int) record.get("id"));
+			
+			entformItem.setDueDate((LocalDate) record.get("dueDate"));
+			entformItem.setTaskType((String) record.get("taskType"));
 			entformItem.setTaskName((String) record.get("taskName"));
 			entformItem.setComment((String) record.get("comment"));
 			dataList.add(entformItem);
@@ -66,7 +73,7 @@ public class SampleDao {
 
 	public void updateSample(Long id, EntForm entform) {
 		System.out.println("編集の実行");
-		db.update("UPDATE task SET taskName = ?,comment = ? WHERE id = ?",entform.getTaskName(),entform.getComment(),  id);
+		db.update("UPDATE task SET taskType=?,dueDate=?,taskName = ?,comment = ? WHERE id = ?", entform.getTaskType(),entform.getDueDate(),entform.getTaskName(),entform.getComment(),  id);
 	}
 
 }

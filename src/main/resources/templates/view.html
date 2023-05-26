@@ -24,6 +24,7 @@
 			<td th:text="${res.dueDate}">期日</td>
 			<td th:text="${res.comment}">コメント</td>
 			<td >
+			
 				<form th:action="@{/edit/{id}(id=${res.id})}">
 					<input type="submit" class="edit" value="編集">
 				</form>
