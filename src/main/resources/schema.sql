@@ -1,0 +1,8 @@
+CREATE TABLE task
+(
+   id INT NOT NULL AUTO_INCREMENT,
+   taskName VARCHAR (100) NOT NULL,
+   comment VARCHAR (500) NOT NULL,
+
+   PRIMARY KEY (id)
+);
