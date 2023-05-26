@@ -3,8 +3,10 @@ package com.example.demo.entity;
 public class EntForm {
 
 	private int id;
+	private String taskType;
 	private String taskName;
 	private String comment;
+	private String dueDate;
 
 	public EntForm() {
 	}
@@ -15,6 +17,14 @@ public class EntForm {
 
 	public void setId(int id) {
 		this.id = id;
+	}
+	
+	public String getTaskType() {
+		return taskType;
+	}
+
+	public void setTaskType(String taskType) {
+		this.taskType = taskType;
 	}
 
 	public String getTaskName() {
@@ -31,5 +41,13 @@ public class EntForm {
 
 	public void setComment(String comment) {
 		this.comment = comment;
+	}
+	
+	public String getDueDate() {
+		return dueDate;
+	}
+
+	public void setDueDate(String dueDate) {
+		this.dueDate = dueDate;
 	}
 }
