@@ -18,7 +18,7 @@
 			タスク：<input type="text" name="taskName" placeholder="進捗の報告" th:value="*{taskName}" >
 		</p>
 		<p>
-			期日：<input type="text" name="deuDate" placeholder="2023年5月27日" th:value="*{deuDate}" >
+			期日：<input type="text" name="dueDate" placeholder="2023年5月27日" th:value="*{dueDate}" >
 		</p>
 		<span th:if="${#fields.hasErrors('taskName')}" th:errors="*{taskName}"></span>
 		<p>
