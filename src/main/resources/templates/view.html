@@ -10,14 +10,18 @@
 	<table>
 		<tr>
 			<th>id</th>
+			<th>タスクの種類</th>
 			<th>タスク</th>
+			<th>期日</th>
 			<th>コメント</th>
 			<th></th>
 			<th></th>
 		</tr>
 		<tr th:each="res : ${dbList}">
 			<td th:text="${res.id}">1</td>
+			<td th:text="${res.taskType}">タスクの種類</td>
 			<td th:text="${res.taskName}">タスク</td>
+			<td th:text="${res.deuDate}">期日</td>
 			<td th:text="${res.comment}">コメント</td>
 			<td >
 				<form th:action="@{/edit/{id}(id=${res.id})}">
