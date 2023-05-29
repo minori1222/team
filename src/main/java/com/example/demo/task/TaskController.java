@@ -45,8 +45,8 @@ public class TaskController {
 	@RequestMapping("/complete")
 	public String complete(Model model, Input input) {
 		EntForm entform = new EntForm();
-		entform.setTaskName(input.getTaskName());
 		entform.setTaskType(input.getTaskType());
+		entform.setTaskName(input.getTaskName());
 		entform.setDueDate(input.getDueDate());
 		entform.setComment(input.getComment());
 		sampledao.insertDb(entform);
@@ -97,5 +97,16 @@ public class TaskController {
 
 		return "redirect:/view";
 	}
+//	検索
+	@RequestMapping("/search")
+	public String Search(@RequestParam("search") String search, Model model) {
+		List<EntForm> list = sampledao.getSearch(search);
+		model.addAttribute("search", search);
+		model.addAttribute("dbList", list);
+		model.addAttribute("title", "タスク検索結果");
+		model.addAttribute("word", "検索タスク「"+search+"」");
+		return "search";
+	}
 
 }
+	

@@ -1,16 +1,16 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
+
 <head>
 <title>Hello</title>
 <meta charset="utf-8" />
 <link rel="stylesheet" th:href="@{/style.css}">
 </head>
+
 <body>
 	<h1 th:text="${title}"></h1>
-	<form method="get" action="/search">
-        <p>タスクの種類検索：<input type="text" name="search"></p>
-        <input type="submit" value="検索">
-	</form>
+
+	<h2 th:text="${word}"></h2>
 	<table>
 		<tr>
 			<th>id</th>
@@ -18,8 +18,8 @@
 			<th>タスク</th>
 			<th>期日</th>
 			<th>コメント</th>
-			<th></th>
-			<th></th>
+			<th>編集</th>
+			<th>削除</th>
 		</tr>
 		<tr th:each="res : ${dbList}">
 			<td th:text="${res.id}">1</td>
@@ -28,7 +28,6 @@
 			<td th:text="${res.dueDate}">期日</td>
 			<td th:text="${res.comment}">コメント</td>
 			<td>
-
 				<form th:action="@{/edit/{id}(id=${res.id})}">
 					<input type="submit" class="edit" value="編集">
 				</form>
@@ -41,7 +40,12 @@
 		</tr>
 	</table>
 	<p>
+		<a href="/form" th:href="@{/view}">一覧ページへ</a>
+	</p>
+	<p>
 		<a href="/form" th:href="@{/form}">フォーム入力画面へ</a>
 	</p>
 </body>
+
 </html>
+
