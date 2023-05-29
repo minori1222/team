@@ -99,14 +99,15 @@ public class TaskController {
 	}
 //	検索
 	@RequestMapping("/search")
-	public String Search(@RequestParam("search") String search, Model model) {
-		List<EntForm> list = sampledao.getSearch(search);
-		model.addAttribute("search", search);
-		model.addAttribute("dbList", list);
-		model.addAttribute("title", "タスク検索結果");
-		model.addAttribute("word", "検索タスク「"+search+"」");
-		return "search";
+	public String Search(@RequestParam("search") String searchTerm, Model model) {
+	    List<EntForm> list = sampledao.getSearch(searchTerm);
+	    model.addAttribute("search", searchTerm);
+	    model.addAttribute("dbList", list);
+	    model.addAttribute("title", "タスク検索結果");
+	    model.addAttribute("word", "検索タスク「" + searchTerm + "」");
+	    return "search";
 	}
+
 
 }
 	
