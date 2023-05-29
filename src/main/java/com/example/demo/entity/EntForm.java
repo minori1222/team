@@ -5,9 +5,9 @@ import java.time.LocalDate;
 public class EntForm {
 
 	private int id;
-	private String taskName;
 	private String taskType;
-	private String dueDate;
+	private String taskName;
+	private LocalDate dueDate;
 	private String comment;
 
 	public EntForm() {
@@ -21,13 +21,6 @@ public class EntForm {
 		this.id = id;
 	}
 
-	public String getTaskName() {
-		return taskName;
-	}
-
-	public void setTaskName(String taskName) {
-		this.taskName = taskName;
-	}
 	public String getTaskType() {
 		return taskType;
 	}
@@ -36,11 +29,19 @@ public class EntForm {
 		this.taskType = taskType;
 	}
 
-	public String getDueDate() {
-		return dueDate;
+	public String getTaskName() {
+		return taskName;
 	}
 
-	public void setDueDate(String dueDate) {
+	public void setTaskName(String taskName) {
+		this.taskName = taskName;
+	}
+
+	public LocalDate getDueDate() {
+		return this.dueDate;
+	}
+
+	public void setDueDate(LocalDate dueDate) {
 		this.dueDate = dueDate;
 	}
 

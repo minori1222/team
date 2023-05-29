@@ -8,7 +8,9 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.example.demo.dao.SampleDao;
 import com.example.demo.entity.EntForm;
@@ -43,8 +45,8 @@ public class TaskController {
 	@RequestMapping("/complete")
 	public String complete(Model model, Input input) {
 		EntForm entform = new EntForm();
-		entform.setTaskName(input.getTaskName());
 		entform.setTaskType(input.getTaskType());
+		entform.setTaskName(input.getTaskName());
 		entform.setDueDate(input.getDueDate());
 		entform.setComment(input.getComment());
 		sampledao.insertDb(entform);
@@ -102,5 +104,17 @@ public class TaskController {
 
 		return "redirect:/view";
 	}
+//	検索
+	@RequestMapping("/search")
+	public String Search(@RequestParam("search") String searchTerm, Model model) {
+	    List<EntForm> list = sampledao.getSearch(searchTerm);
+	    model.addAttribute("search", searchTerm);
+	    model.addAttribute("dbList", list);
+	    model.addAttribute("title", "タスク検索結果");
+	    model.addAttribute("word", "検索タスク「" + searchTerm + "」");
+	    return "search";
+	}
+
 
 }
+	
