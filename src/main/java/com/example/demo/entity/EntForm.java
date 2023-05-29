@@ -37,7 +37,7 @@ public class EntForm {
 		this.taskName = taskName;
 	}
 
-	public LocalDate getDueDate() {
+	public  LocalDate getDueDate() {
 		return this.dueDate;
 	}
 

@@ -1,5 +1,6 @@
 package com.example.demo.task;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,7 +9,6 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -57,6 +57,20 @@ public class TaskController {
 	@RequestMapping("/view")
 	public String view(Model model) {
 		List<EntForm> list = sampledao.getAll();
+
+	    LocalDate nowDate = LocalDate.now();
+	    for (EntForm entForm : list) {
+	        LocalDate dueDate = entForm.getDueDate();
+
+	        if (nowDate.isEqual(dueDate)) {
+	            System.out.println("黄色表示");
+	        } else if (nowDate.isAfter(dueDate)) {
+	            System.out.println("赤色表示");
+	        } else {
+	            System.out.println("何もしない");
+	        }
+	    }
+	    model.addAttribute("nowDate", nowDate);
 		model.addAttribute("dbList", list);
 		model.addAttribute("title", "一覧ページ");
 		return "view";
@@ -69,13 +83,7 @@ public class TaskController {
 		return "redirect:/view";
 	}
 	
-	//削除
-	@RequestMapping("/comp/{id}")
-	public String comp(@PathVariable Long id) {
-		sampledao.compSample(id);
-		return "redirect:/view";
-	}
-
+	
 	//編集画面の表示
 	@RequestMapping("/edit/{id}")
 	public String editView(@PathVariable Long id, Model model) {
@@ -114,7 +122,15 @@ public class TaskController {
 	    model.addAttribute("word", "検索タスク「" + searchTerm + "」");
 	    return "search";
 	}
-
+	//日付ソート
+		@RequestMapping("/sort")
+		public String Sort(@RequestParam("sort") String sort, Model model) {
+			System.out.println(sort);
+			List<EntForm> list = sampledao.getSort(sort);
+			model.addAttribute("dbList", list);
+			model.addAttribute("title", "一覧ページ");
+			return "view";
+		}
 
 }
 	
