@@ -12,7 +12,13 @@
 	<form method="get" action="#" th:action="@{/confirm}"
 		th:object="${input}">
 		<p>
+			タスクの種類：<input type="text" name="taskType" placeholder="プロジェクトA" th:value="*{taskType}" >
+		</p>
+		<p>
 			タスク：<input type="text" name="taskName" placeholder="進捗の報告" th:value="*{taskName}" >
+		</p>
+		<p>
+			期日：<input type="date" name="dueDate" placeholder="2023年5月27日" th:value="*{dueDate}" >
 		</p>
 		<span th:if="${#fields.hasErrors('taskName')}" th:errors="*{taskName}"></span>
 		<p>

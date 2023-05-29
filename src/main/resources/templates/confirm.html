@@ -12,16 +12,22 @@
 	
 	<div th:object="${input}">
 		<h2>入力内容確認</h2>
+		<p>タスクの種類：<span th:text="*{taskType}"></span> </p>
 		<p>タスク：<span th:text="*{taskName}"></span> </p>
+		<p>期日：<span th:text="*{dueDate}"></span> </p>
 		<p>コメント：<span th:text="*{comment}"></span></p>
 		
 		<form method="get" action="#" th:action="@{/form}">
+			<input type="hidden" name="taskType" th:value="*{taskType}">
 			<input type="hidden" name="taskName" th:value="*{taskName}">
+			<input type="hidden" name="dueDate" th:value="*{dueDate}">
 			<input type="hidden" name="comment" th:value="*{comment}">
 			<input type="submit" value="入力画面へ">
 		</form>
 		<form method="get" action="#" th:action="@{/complete}">
+			<input type="hidden" name="taskType" th:value="*{taskType}">
 			<input type="hidden" name="taskName" th:value="*{taskName}">
+			<input type="hidden" name="dueDate" th:value="*{dueDate}">
 			<input type="hidden" name="comment" th:value="*{comment}">
 			<input type="submit" value="完了画面へ">
 		</form>

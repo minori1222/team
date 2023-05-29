@@ -20,7 +20,12 @@ public class SampleDao {
 	}
 
 	public void insertDb(EntForm entform) {
-		db.update("INSERT INTO task(taskName,comment) VALUES(?,?)", entform.getTaskName(), entform.getComment());
+
+
+
+		db.update("INSERT INTO task(taskType,taskName, dueDate,comment) VALUES(?,?,?,?)",
+				entform.getTaskType(), entform.getTaskName(),entform.getDueDate(), entform.getComment());
+
 	}
 
 
@@ -33,6 +38,12 @@ public class SampleDao {
 			EntForm entformItem = new EntForm();
 
 			entformItem.setId((int) record.get("id"));
+
+			
+			Date sqlDate = (Date) record.get("dueDate");
+			LocalDate localDate = sqlDate.toLocalDate();
+			entformItem.setDueDate(localDate);
+			entformItem.setTaskType((String) record.get("taskType"));
 			entformItem.setTaskName((String) record.get("taskName"));
 			entformItem.setComment((String) record.get("comment"));
 
@@ -46,6 +57,12 @@ public class SampleDao {
 		System.out.println("削除しました");
 		db.update("delete from task where id=?", id);
 	}
+	
+	//削除
+	public void compSample(Long id) {
+		System.out.println("タスク完了しました");
+		db.update("comp from task where id=?", id);
+	}
 
 	//編集
 	public List<EntForm> getOne(Long id) {
@@ -57,6 +74,11 @@ public class SampleDao {
 		for (Map<String, Object> record : queryResult) {
 			EntForm entformItem = new EntForm();
 			entformItem.setId((int) record.get("id"));
+			
+			Date sqlDate = (Date) record.get("dueDate");
+			LocalDate localDate = sqlDate.toLocalDate();
+			entformItem.setDueDate(localDate);
+			entformItem.setTaskType((String) record.get("taskType"));
 			entformItem.setTaskName((String) record.get("taskName"));
 			entformItem.setComment((String) record.get("comment"));
 			dataList.add(entformItem);
@@ -66,7 +88,33 @@ public class SampleDao {
 
 	public void updateSample(Long id, EntForm entform) {
 		System.out.println("編集の実行");
-		db.update("UPDATE task SET taskName = ?,comment = ? WHERE id = ?",entform.getTaskName(),entform.getComment(),  id);
+		db.update("UPDATE task SET taskType=?,dueDate=?,taskName = ?,comment = ? WHERE id = ?", entform.getTaskType(),entform.getDueDate(),entform.getTaskName(),entform.getComment(),  id);
 	}
+	
+//	検索
+	public List<EntForm> getSearch(String taskType) {
+		String searchTerm = "%" + taskType + "%";
+	    List<Map<String, Object>> queryResult = db.queryForList("SELECT * FROM task WHERE taskType LIKE ?", searchTerm);
+//		List<Map<String, Object>> queryResult = db.queryForList("SELECT * FROM task WHERE taskType =?",taskType);
+		List<EntForm> dataList = new ArrayList<EntForm>();
+
+		for (Map<String, Object> record : queryResult) {
+			EntForm entformItem = new EntForm();
+
+			entformItem.setId((int) record.get("id"));
+			Date sqlDate = (Date) record.get("dueDate");
+			LocalDate localDate = sqlDate.toLocalDate();
+			entformItem.setDueDate(localDate);
+			entformItem.setTaskType((String) record.get("taskType"));
+			entformItem.setTaskName((String) record.get("taskName"));
+			entformItem.setComment((String) record.get("comment"));
+
+			dataList.add(entformItem);
+		}
+		return dataList;
+	}
+
+	
+	
 
 }
