@@ -1,10 +1,8 @@
 package com.example.demo.dao;
 
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-import java.sql.Date;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -53,6 +51,12 @@ public class SampleDao {
 	public void deleteSample(Long id) {
 		System.out.println("削除しました");
 		db.update("delete from task where id=?", id);
+	}
+	
+	//削除
+	public void compSample(Long id) {
+		System.out.println("タスク完了しました");
+		db.update("comp from task where id=?", id);
 	}
 
 	//編集
