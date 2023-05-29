@@ -28,10 +28,13 @@ public class TaskController {
 			model.addAttribute("title", "入力ページ");
 			return "form";
 		}
-
+		
 		model.addAttribute("title", "確認ページ");
 		return "confirm";
 	}
+	
+	
+	
 
 	private final SampleDao sampledao;
 

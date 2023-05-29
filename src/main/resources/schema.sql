@@ -1,6 +1,8 @@
 CREATE TABLE task
 (
    id INT NOT NULL AUTO_INCREMENT,
+   dueDATE date NOT NULL,
+   taskType VARCHAR (100) NOT NULL,
    taskName VARCHAR (100) NOT NULL,
    comment VARCHAR (500) NOT NULL,
 

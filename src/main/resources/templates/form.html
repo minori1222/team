@@ -12,6 +12,9 @@
 	<form method="get" action="#" th:action="@{/confirm}"
 		th:object="${input}">
 		<p>
+			期限：<input type="text" name="taskName" placeholder="5/26" th:value="*{dueDate}" >
+		</p>
+		<p>
 			タスク：<input type="text" name="taskName" placeholder="進捗の報告" th:value="*{taskName}" >
 		</p>
 		<span th:if="${#fields.hasErrors('taskName')}" th:errors="*{taskName}"></span>
