@@ -1,10 +1,14 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
+
 <head>
-<title>Hello</title>
-<meta charset="utf-8" />
-<link rel="stylesheet" th:href="@{/style.css}">
+
+	<title>Hello</title>
+	<meta charset="utf-8" />
+	<link rel="stylesheet" th:href="@{/style.css}">
+
 </head>
+
 <body>
 	<h1 th:text="${title}"></h1>
 	<form method="get" action="/search">
@@ -13,6 +17,7 @@
 	</form>
 	<table>
 		<tr>
+			<th></th>
 			<th>id</th>
 			<th>タスクの種類</th>
 			<th>タスク</th>
@@ -22,6 +27,11 @@
 			<th></th>
 		</tr>
 		<tr th:each="res : ${dbList}">
+			<td>
+				<form th:action="@{/comp/{id}}">
+					<input type="checkbox" class="check" />
+				</form>
+			</td>
 			<td th:text="${res.id}">1</td>
 			<td th:text="${res.taskType}">タスクの種類</td>
 			<td th:text="${res.taskName}">タスク</td>
@@ -44,4 +54,5 @@
 		<a href="/form" th:href="@{/form}">フォーム入力画面へ</a>
 	</p>
 </body>
+
 </html>

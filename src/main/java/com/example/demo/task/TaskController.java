@@ -68,6 +68,13 @@ public class TaskController {
 		sampledao.deleteSample(id);
 		return "redirect:/view";
 	}
+	
+	//削除
+	@RequestMapping("/comp/{id}")
+	public String comp(@PathVariable Long id) {
+		sampledao.compSample(id);
+		return "redirect:/view";
+	}
 
 	//編集画面の表示
 	@RequestMapping("/edit/{id}")
