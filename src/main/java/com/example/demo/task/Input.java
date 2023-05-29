@@ -8,7 +8,8 @@ import jakarta.validation.constraints.NotBlank;
 public class Input {
 	
 	private String taskType;
-	private String dueDate;
+	//下記フィールド変数のデータ型を修正したことにより、データ型の変換を随所に行いました。
+	private LocalDate dueDate;
 	@NotBlank(message ="文字を入力してください")
 	private String taskName;
 	@NotBlank(message ="文字を入力してください")
@@ -35,11 +36,11 @@ public class Input {
 
 	
 
-	public String getDueDate() {
+	public LocalDate getDueDate() {
 		return dueDate;
 	}
 
-	public void setDueDate(String dueDate) {
+	public void setDueDate(LocalDate dueDate) {
 		this.dueDate = dueDate;
 	}
 

@@ -7,7 +7,8 @@ public class EntForm {
 	private int id;
 	private String taskName;
 	private String taskType;
-	private String dueDate;
+	//	private String dueDate;
+	private LocalDate dueDate;
 	private String comment;
 
 	public EntForm() {
@@ -28,6 +29,7 @@ public class EntForm {
 	public void setTaskName(String taskName) {
 		this.taskName = taskName;
 	}
+
 	public String getTaskType() {
 		return taskType;
 	}
@@ -36,11 +38,19 @@ public class EntForm {
 		this.taskType = taskType;
 	}
 
-	public String getDueDate() {
-		return dueDate;
+	//	public String getDueDate() {
+	//		return dueDate;
+	//	}
+	//
+	//	public void setDueDate(String dueDate) {
+	//		this.dueDate = dueDate;
+	//	}
+
+	public LocalDate getDueDate() {
+		return this.dueDate;
 	}
 
-	public void setDueDate(String dueDate) {
+	public void setDueDate(LocalDate dueDate) {
 		this.dueDate = dueDate;
 	}
 

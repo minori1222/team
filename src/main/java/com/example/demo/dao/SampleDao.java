@@ -39,7 +39,11 @@ public class SampleDao {
 //			Date sqlDate = (Date) record.get("dueDate");
 //	        LocalDate localDate = sqlDate.toLocalDate();
 //	        entformItem.setDueDate(localDate);
-	        entformItem.setDueDate((String) record.get("dueDate"));
+			//entformItem.setDueDate((String) record.get("dueDate"));
+			
+			Date sqlDate = (Date) record.get("dueDate");
+			LocalDate localDate = sqlDate.toLocalDate();
+			entformItem.setDueDate(localDate);
 			entformItem.setTaskType((String) record.get("taskType"));
 			entformItem.setTaskName((String) record.get("taskName"));
 			entformItem.setComment((String) record.get("comment"));
@@ -69,7 +73,10 @@ public class SampleDao {
 //			Date sqlDate = (Date) record.get("dueDate");
 //	        LocalDate localDate = sqlDate.toLocalDate();
 //	        entformItem.setDueDate(localDate);
-			entformItem.setDueDate((String) record.get("dueDate"));
+			Date sqlDate = (Date) record.get("dueDate");
+			LocalDate localDate = sqlDate.toLocalDate();
+			entformItem.setDueDate(localDate);
+			
 			entformItem.setTaskType((String) record.get("taskType"));
 			entformItem.setTaskName((String) record.get("taskName"));
 			entformItem.setComment((String) record.get("comment"));
