@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<title>ToDoリスト</title>
+	<meta charset="utf-8" />
+	<link rel="stylesheet" th:href="@{/style.css}">
+</head>
+
+<body>
+	<h1 th:text="${title}"></h1>
+		<form method="get" action="#" th:action="@{/confirm}" th:object="${input}">
+			<p>
+				タスクの種類　<input type="text" name="taskType" placeholder="プロジェクトA" th:value="*{taskType}">
+			</p>
+			<p>
+				タスク　<input type="text" name="taskName" placeholder="進捗の報告" th:value="*{taskName}">
+				<span th:if="${#fields.hasErrors('taskName')}" th:errors="*{taskName}" class="error"></span>
+			</p>
+			<p>
+				期日　<input type="date" name="dueDate" placeholder="2023年5月27日" th:value="*{dueDate}">
+				<span th:if="${#fields.hasErrors('dueDate')}" th:errors="*{dueDate}" class="error"></span>
+			</p>
+			<p>
+				コメント　<input type="text" name="comment" placeholder="山田さんと佐藤さん" th:value="*{comment}">
+				<span th:if="${#fields.hasErrors('comment')}" th:errors="*{comment}" class="error"></span>
+			</p>
+	<input type="submit" value="送信" class="botan">
+	</form>
+</body>
+
+</html>
