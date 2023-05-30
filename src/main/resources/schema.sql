@@ -1,9 +1,19 @@
 CREATE TABLE task
 (
    id INT NOT NULL AUTO_INCREMENT,
-   taskType VARCHAR (100) NOT NULL,
-   dueDate VARCHAR (100) NOT NULL,
    taskName VARCHAR (100) NOT NULL,
+   taskType VARCHAR (100) NOT NULL,
+   dueDate DATE ,
    comment VARCHAR (500) NOT NULL,
+
    PRIMARY KEY (id)
+);
+
+CREATE TABLE login
+(
+	id INT NOT NULL AUTO_INCREMENT,
+	logId VARCHAR (100) NOT NULL,
+	pass VARCHAR (100) NOT NULL,
+	
+	PRIMARY KEY (id)
 );
