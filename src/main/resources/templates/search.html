@@ -2,15 +2,19 @@
 <html xmlns:th="http://www.thymeleaf.org">
 
 <head>
-<title>Hello</title>
-<meta charset="utf-8" />
-<link rel="stylesheet" th:href="@{/style.css}">
+	<title>Hello</title>
+	<meta charset="utf-8" />
+	<link rel="stylesheet" th:href="@{/style.css}">
 </head>
 
 <body>
 	<h1 th:text="${title}"></h1>
 
 	<h2 th:text="${word}"></h2>
+	<form method="get" action="#" th:action="@{/shsort}">
+		<input type="hidden" name="word" th:value="*{search}">
+		<button type="submit" name="sort" value="ASC">昇順</button>
+		<button type="submit" name="sort" value="DESC">降順</button>	
 	<table>
 		<tr>
 			<th>id</th>
@@ -43,9 +47,8 @@
 		<a href="/form" th:href="@{/view}">一覧ページへ</a>
 	</p>
 	<p>
-		<a href="/form" th:href="@{/form}">フォーム入力画面へ</a>
+		<a href="/form" th:href="@{/form}">タスク追加</a>
 	</p>
 </body>
 
 </html>
-

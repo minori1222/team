@@ -5,10 +5,10 @@ import java.time.LocalDate;
 public class EntForm {
 
 	private int id;
-	private String taskType;
 	private String taskName;
-	private LocalDate dueDate;
+	private String taskType;
 	private String comment;
+	private LocalDate dueDate;
 
 	public EntForm() {
 	}
@@ -21,14 +21,6 @@ public class EntForm {
 		this.id = id;
 	}
 
-	public String getTaskType() {
-		return taskType;
-	}
-
-	public void setTaskType(String taskType) {
-		this.taskType = taskType;
-	}
-
 	public String getTaskName() {
 		return taskName;
 	}
@@ -36,13 +28,13 @@ public class EntForm {
 	public void setTaskName(String taskName) {
 		this.taskName = taskName;
 	}
-
-	public  LocalDate getDueDate() {
-		return this.dueDate;
+	
+	public String getTaskType() {
+		return taskType;
 	}
 
-	public void setDueDate(LocalDate dueDate) {
-		this.dueDate = dueDate;
+	public void setTaskType(String taskType) {
+		this.taskType = taskType;
 	}
 
 	public String getComment() {
@@ -52,4 +44,21 @@ public class EntForm {
 	public void setComment(String comment) {
 		this.comment = comment;
 	}
+	
+//	public int getNowDate() {
+//		return nowDate;
+//	}
+//	
+//	public void setNowDate(int nowDate) {
+//		this.nowDate = nowDate;
+//	}
+	
+	public LocalDate getDueDate() {
+		return dueDate;
+	}
+	
+	public void setDueDate(LocalDate dueDate) {
+		this.dueDate = dueDate;
+	}
+	
 }
