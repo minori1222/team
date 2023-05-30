@@ -8,6 +8,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -70,27 +71,28 @@ public class TaskController {
 		return "register";
 	}
 	
-	@PostMapping("/login")
-    public String login(Model model, @RequestParam("logId") String logId, @RequestParam("pass") String pass) {
-        UserEntForm user = SampleDao.findByUsername(logId);
+	@GetMapping("/login")
+    public String showLoginForm(Model model) {
+        model.addAttribute("title", "ログイン");
+        return "login";
+    }
+
+    @PostMapping("/login")
+    public String login(Model model, @RequestParam("logId") String LogId,
+            @RequestParam("pass") String pass) {
+        UserEntForm user = SampleDao.findByUsername(LogId);
         model.addAttribute("title", "ログイン");
 
-        if (user != null) {
-            if (user.getPass().equals(pass)) {
-                // ログイン成功の処理
-                model.addAttribute("result", "ログイン成功");
-                return "redirect:/form"; // タスクviewにリダイレクト
-            } else {
-                // パスワードが間違っている場合の処理
-                model.addAttribute("result", "パスワードが違います");
-                return "login";
-            }
+        if (user != null && user.getPass().equals(pass)) {
+            // ログイン成功の処理
+            model.addAttribute("result", "ログイン成功");
+            return "redirect:/view"; // タスク管理画面にリダイレクト
         } else {
-            // ユーザー名が間違っている場合の処理
-            model.addAttribute("result", "ユーザー名が登録されていません");
+            // ログイン失敗の処理
+            model.addAttribute("result", "ユーザー名またはパスワードが間違っています");
             return "login";
         }
-	}
+    }
 
 	//	全件表示
 	@RequestMapping("/view")
@@ -139,6 +141,19 @@ public class TaskController {
 		model.addAttribute("dbList", list);
 		model.addAttribute("title", "一覧ページ");
 		return "view";
+	}
+	
+	@RequestMapping("/shsort")
+	public String ShSort(@RequestParam("sort") String sort,@RequestParam("word")String search, Model model) {
+//		sort="ASC";
+//		search="プロジェクトB";
+		System.out.println(sort+search);
+		List<EntForm> list = sampledao.getShSort(sort,search);
+		model.addAttribute("dbList", list);
+		model.addAttribute("title", "タスク検索結果");
+		model.addAttribute("word", "検索タスク「" + search + "」");
+		model.addAttribute("search", search);
+		return "search";
 	}
 
 	//更新

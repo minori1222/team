@@ -126,50 +126,63 @@ public class SampleDao {
 	}
 
 	public List<EntForm> getSort(String sort) {
-
+		List<Map<String, Object>> queryResult = db.queryForList("SELECT * FROM task");
+		List<EntForm> dataList = new ArrayList<EntForm>();
 		if (sort.equals("ASC")) {
-			List<Map<String, Object>> queryResult = db.queryForList("SELECT * FROM task ORDER BY dueDate ASC");
-			List<EntForm> dataList = new ArrayList<EntForm>();
+			queryResult = db.queryForList("SELECT * FROM task ORDER BY dueDate ASC");
+			//			List<EntForm> dataList = new ArrayList<EntForm>();
 			System.out.println("昇順ソート");
-
-			for (Map<String, Object> record : queryResult) {
-				EntForm entformItem = new EntForm();
-
-				entformItem.setId((int) record.get("id"));
-				Date sqlDate = (Date) record.get("dueDate");
-				LocalDate localDate = sqlDate.toLocalDate();
-				entformItem.setDueDate(localDate);
-				entformItem.setTaskType((String) record.get("taskType"));
-				entformItem.setTaskName((String) record.get("taskName"));
-				entformItem.setComment((String) record.get("comment"));
-
-				dataList.add(entformItem);
-			}
-			return dataList;
 		}
 		if (sort.equals("DESC")) {
-			List<Map<String, Object>> queryResult = db.queryForList("SELECT * FROM task ORDER BY dueDate DESC");
-			List<EntForm> dataList = new ArrayList<EntForm>();
+			queryResult = db.queryForList("SELECT * FROM task ORDER BY dueDate DESC");
 			System.out.println("降順ソート");
-
-			for (Map<String, Object> record : queryResult) {
-				EntForm entformItem = new EntForm();
-
-				entformItem.setId((int) record.get("id"));
-				Date sqlDate = (Date) record.get("dueDate");
-				LocalDate localDate = sqlDate.toLocalDate();
-				entformItem.setDueDate(localDate);
-				entformItem.setTaskType((String) record.get("taskType"));
-				entformItem.setTaskName((String) record.get("taskName"));
-				entformItem.setComment((String) record.get("comment"));
-
-				dataList.add(entformItem);
-			}
-			return dataList;
 		}
-		return null;
 
+		for (Map<String, Object> record : queryResult) {
+			EntForm entformItem = new EntForm();
+
+			entformItem.setId((int) record.get("id"));
+			Date sqlDate = (Date) record.get("dueDate");
+			LocalDate localDate = sqlDate.toLocalDate();
+			entformItem.setDueDate(localDate);
+			entformItem.setTaskType((String) record.get("taskType"));
+			entformItem.setTaskName((String) record.get("taskName"));
+			entformItem.setComment((String) record.get("comment"));
+
+			dataList.add(entformItem);
+		}
+		return dataList;
 	}
+	
+	public List<EntForm> getShSort(String sort, String taskType) {
+
+		List<Map<String, Object>> queryResult = db.queryForList("SELECT * FROM task");
+		List<EntForm> dataList = new ArrayList<EntForm>();
+		String searchTerm = "%" + taskType + "%";
+		if (sort.equals("ASC")) {
+			queryResult = db.queryForList("SELECT * FROM task WHERE taskType LIKE ? ORDER BY dueDate ASC", searchTerm);
+			System.out.println("昇順ソート");
+		}
+		if (sort.equals("DESC")) {
+			queryResult = db.queryForList("SELECT * FROM task WHERE taskType LIKE ? ORDER BY dueDate DESC", searchTerm);
+			System.out.println("降順ソート");
+		}
+		for (Map<String, Object> record : queryResult) {
+			EntForm entformItem = new EntForm();
+
+			entformItem.setId((int) record.get("id"));
+			Date sqlDate = (Date) record.get("dueDate");
+			LocalDate localDate = sqlDate.toLocalDate();
+			entformItem.setDueDate(localDate);
+			entformItem.setTaskType((String) record.get("taskType"));
+			entformItem.setTaskName((String) record.get("taskName"));
+			entformItem.setComment((String) record.get("comment"));
+
+			dataList.add(entformItem);
+		}
+		return dataList;
+	}
+
 	
 	public static UserEntForm findByUsername(String logId) {
 	    String sql = "SELECT * FROM login WHERE logId = ?";

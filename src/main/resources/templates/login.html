@@ -2,23 +2,25 @@
 <html xmlns:th="http://www.thymeleaf.org">
 
 <head>
-<meta charset="utf-8" />
-<link rel="stylesheet" th:href="@{/style.css}">
+    <title>ログイン</title>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" th:href="@{/style.css}">
 </head>
 
 <body>
-	<h1>ログイン画面</h1>
-	<p>ユーザID、パスワードをご入力の上、「ログイン」ボタンをクリックしてください。</p>
-	<form method="get" action="#" th:object="${userInput}">
-		<p>
-			ID：<input type="text" name="logId" placeholder="IDを入力してください" th:value="*{logId}" >
-		</p>
-		<p>
-			パスワード：<input type="text" name="pass" placeholder="パスワードを入力してください" th:value="*{pass}" >
-		</p>
-		<input type="submit" value="登録" class="botan">
-	</form>
-	<p th:text="${result}" th:if="${not #strings.isEmpty(result)}"></p>
+    <h1>ログイン</h1>
+    <form method="post" action="/login">
+        <p>
+            ユーザー名：<input type="text" name="logId" required>
+        </p>
+        <p>
+            パスワード：<input type="password" name="pass" required>
+        </p>
+        <p>
+            <input type="submit" value="ログイン">
+        </p>
+        <p th:text="${result}"></p>
+    </form>
 </body>
 
 </html>
