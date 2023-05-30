@@ -3,9 +3,9 @@
 
 <head>
 
-<title>Hello</title>
-<meta charset="utf-8" />
-<link rel="stylesheet" th:href="@{/style.css}">
+	<title>Hello</title>
+	<meta charset="utf-8" />
+	<link rel="stylesheet" th:href="@{/style.css}">
 
 </head>
 
@@ -18,7 +18,6 @@
 		<input type="submit" value="検索">
 		<button type="submit" name="sort" value="ASC">昇順</button>
 		<button type="submit" name="sort" value="DESC">降順</button>
-
 	</form>
 	<table>
 		<tr>
@@ -28,6 +27,7 @@
 			<th>タスク</th>
 			<th>期日</th>
 			<th>コメント</th>
+			<th></th>
 			<th></th>
 			<th></th>
 		</tr>
@@ -40,11 +40,9 @@
 			<td th:text="${res.id}">1</td>
 			<td th:text="${res.taskType}">タスクの種類</td>
 			<td th:text="${res.taskName}">タスク</td>
-			<td
-				th:class="${res.dueDate.isEqual(nowDate) ? 'yellow' : (res.dueDate.isBefore(nowDate) ? 'red' : '')}">
+			<td th:class="${res.dueDate.isEqual(nowDate) ? 'yellow' : (res.dueDate.isBefore(nowDate) ? 'red' : '')}">
 				<span th:text="${res.dueDate}">期日</span>
 			</td>
-
 			<td th:text="${res.comment}">コメント</td>
 			<td>
 
@@ -60,7 +58,7 @@
 		</tr>
 	</table>
 	<p>
-		<a href="/form" th:href="@{/form}">フォーム入力画面へ</a>
+		<a href="/form" th:href="@{/form}">タスク追加</a>
 	</p>
 </body>
 
