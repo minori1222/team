@@ -54,7 +54,7 @@ public class TaskController {
 //	新規登録
 	@RequestMapping("/signup")
 	public String signup(Model model, UserInput userinput) {
-		model.addAttribute("title", "todoリスト");
+		model.addAttribute("title", "新規登録");
 		return "signup";
 	}
 
