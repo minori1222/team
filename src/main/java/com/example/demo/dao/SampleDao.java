@@ -106,7 +106,9 @@ public class SampleDao {
 			EntForm entformItem = new EntForm();
 			entformItem.setId((int) record.get("id"));
 
-			entformItem.setDueDate((LocalDate) record.get("dueDate"));
+			Date sqlDate = (Date) record.get("dueDate");
+			LocalDate localdate = sqlDate.toLocalDate();
+			entformItem.setDueDate(localdate);
 			entformItem.setTaskType((String) record.get("taskType"));
 			entformItem.setTaskName((String) record.get("taskName"));
 			entformItem.setComment((String) record.get("comment"));
