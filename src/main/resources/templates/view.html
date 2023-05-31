@@ -17,6 +17,7 @@
 			<input type="submit" value="検索" class="botan2">
 		</p>
 	</form>
+
 	<form method="get" action="/datesearch">
 		<input type="hidden" name="sort" value="">
 		<p>
@@ -25,17 +26,21 @@
 				<input type="submit" value="検索" class="botan2">
 		</p>
 	</form>
-	<button type="submit" name="sort" value="ASC" class="botan2">昇順</button>
-	<button type="submit" name="sort" value="DESC" class="botan2">降順</button>
+
+
+	<form method="get" action="#" th:action="@{/sort}">
+		<button type="submit" name="sort" value="ASC"class="botan2">昇順</button>
+		<button type="submit" name="sort" value="DESC"class="botan2">降順</button>
+	</form>
 
 <p></p>
 	<table>
 		<tr>
 			<th></th>
 			<th>id</th>
+			<th>期日</th>
 			<th>タスクの種類</th>
 			<th>タスク</th>
-			<th>期日</th>
 			<th>コメント</th>
 			<th></th>
 			<th></th>
@@ -47,11 +52,15 @@
 				</form>
 			</td>
 			<td th:text="${res.id}">1</td>
-			<td th:text="${res.taskType}">タスクの種類</td>
-			<td th:text="${res.taskName}">タスク</td>
-			<td th:class="${res.dueDate.isEqual(nowDate) ? 'yellow' : (res.dueDate.isBefore(nowDate) ? 'red' : '')}">
+
+			<td
+				th:class="${res.dueDate.isEqual(nowDate) ? 'yellow' : (res.dueDate.isBefore(nowDate) ? 'red' : '')}">
+
 				<span th:text="${res.dueDate}">期日</span>
 			</td>
+			<td th:text="${res.taskType}">タスクの種類</td>
+			<td th:text="${res.taskName}">タスク</td>
+
 			<td th:text="${res.comment}">コメント</td>
 			<td>
 
