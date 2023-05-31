@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<title>Hello</title>
+	<meta charset="utf-8" />
+	<link rel="stylesheet" th:href="@{/style.css}">
+</head>
+
+<body>
+	<h1 th:text="${title}"></h1>
+
+	<h2 th:text="${word}"></h2>
+	<form method="get" action="#" th:action="@{/datesearch}">
+		<input type="hidden" name="start" th:value="*{start}">
+		<input type="hidden" name="end" th:value="*{end}">
+		<button type="submit" name="sort" value="ASC">昇順</button>
+		<button type="submit" name="sort" value="DESC">降順</button>
+	</form>
+	<table>
+		<tr>
+			<th>id</th>
+			<th>タスクの種類</th>
+			<th>タスク</th>
+			<th>期日</th>
+			<th>コメント</th>
+			<th>編集</th>
+			<th>削除</th>
+		</tr>
+		<tr th:each="res : ${dbList}">
+			<td th:text="${res.id}">1</td>
+			<td th:text="${res.taskType}">タスクの種類</td>
+			<td th:text="${res.taskName}">タスク</td>
+			<td th:class="${res.dueDate.isEqual(nowDate) ? 'yellow' : (res.dueDate.isBefore(nowDate) ? 'red' : '')}">
+				<span th:text="${res.dueDate}">期日</span>
+			</td>
+			<td th:text="${res.comment}">コメント</td>
+			<td>
+				<form th:action="@{/edit/{id}(id=${res.id})}">
+					<input type="submit" class="edit" value="編集">
+				</form>
+			</td>
+			<td>
+				<form th:action="@{/del/{id}(id=${res.id})}">
+					<input type="submit" class="delete" value="削除" />
+				</form>
+			</td>
+		</tr>
+	</table>
+	<p>
+		<a href="/form" th:href="@{/view}">一覧ページへ</a>
+	</p>
+	<p>
+		<a href="/form" th:href="@{/form}">フォーム入力画面へ</a>
+	</p>
+</body>
+
+</html>

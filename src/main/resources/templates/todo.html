@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>todoリスト</title>
+<link rel="stylesheet" th:href="@{/style2.css}">
+</head>
+<body>
+	<header>
+		<div class="container">
+			<div class="header-left">
+				<h1>todoリスト</h1>
+			</div>
+			<div class="header-right">
+				<ul>
+					<li><a class="touroku" href="#">新規登録</a></li>
+					<li><a class="login" href="#">ログイン</a></li>
+				</ul>
+			</div>
+		</div>
+	</header>
+	<div class="main">
+		<div class="copy-cntainer">
+			<h2>
+				TO <span>D</span>O リスト
+			</h2>
+		</div>
+	</div>
+
+	<div class="contact">
+		<h5 class="title">お問い合わせ</h5>
+		<p>メールアドレス（必須）</p>
+		<input type="text" />
+		<p>お問い合わせ内容（必須）</p>
+		<textarea></textarea>
+		<p>※必須項目は必ずご入力ください</p>
+		<input class="submit" type="submit" value="送信" />
+	</div>
+
+	<footer>
+		<h6>todoリスト</h6>
+		<div class="list">
+			<ul>
+				<li>インターネットアカデミー</li>
+				<li>チーム５</li>
+				<li>Special Thanks Mr.谷川</li>
+			</ul>
+		</div>
+	</footer>
+</body>
+</html>
