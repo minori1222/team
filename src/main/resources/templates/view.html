@@ -3,9 +3,9 @@
 
 <head>
 
-	<title>Hello</title>
-	<meta charset="utf-8" />
-	<link rel="stylesheet" th:href="@{/style.css}">
+<title>Hello</title>
+<meta charset="utf-8" />
+<link rel="stylesheet" th:href="@{/style.css}">
 
 </head>
 
@@ -16,9 +16,19 @@
 			タスクの種類検索：<input type="text" name="search">
 		</p>
 		<input type="submit" value="検索">
-		<button type="submit" name="sort" value="ASC">昇順</button>
-		<button type="submit" name="sort" value="DESC">降順</button>
 	</form>
+	<form method="get" action="/datesearch">
+		<input type="hidden" name="sort" value="">
+		<p>
+			期日検索：<input type="date" name="start" value="2023-05-27"
+				th:value="*{start}"> ～ <input type="date" name="end"
+				value="2023-08-27" th:value="*{end}">
+		</p>
+		<input type="submit" value="検索">
+	</form>
+	<button type="submit" name="sort" value="ASC">昇順</button>
+	<button type="submit" name="sort" value="DESC">降順</button>
+
 	<table>
 		<tr>
 			<th></th>
@@ -39,7 +49,8 @@
 			<td th:text="${res.id}">1</td>
 			<td th:text="${res.taskType}">タスクの種類</td>
 			<td th:text="${res.taskName}">タスク</td>
-			<td th:class="${res.dueDate.isEqual(nowDate) ? 'yellow' : (res.dueDate.isBefore(nowDate) ? 'red' : '')}">
+			<td
+				th:class="${res.dueDate.isEqual(nowDate) ? 'yellow' : (res.dueDate.isBefore(nowDate) ? 'red' : '')}">
 				<span th:text="${res.dueDate}">期日</span>
 			</td>
 			<td th:text="${res.comment}">コメント</td>

@@ -22,35 +22,21 @@ public class SampleDao {
 		SampleDao.db = db;
 	}
 
-	public void insertDb(EntForm entform) {
-		db.update("INSERT INTO task(taskType,dueDate,taskName,comment) VALUES(?,?,?,?)", entform.getTaskType(),
-				entform.getDueDate(), entform.getTaskName(), entform.getComment());
-	}
+	//ログイン
+	public static UserEntForm findByUsername(String logId) {
+		String sql = "SELECT * FROM login WHERE logId = ?";
+		List<Map<String, Object>> rows = db.queryForList(sql, logId);
 
-	public void insertDb2(UserEntForm userentform) {
-		db.update("INSERT INTO login(logId,pass) VALUES(?,?)", userentform.getLogId(), userentform.getPass());
-	}
-
-	public List<EntForm> getAll() {
-
-		List<Map<String, Object>> queryResult = db.queryForList("SELECT * FROM task");
-		List<EntForm> dataList = new ArrayList<EntForm>();
-
-		for (Map<String, Object> record : queryResult) {
-			EntForm entformItem = new EntForm();
-
-			entformItem.setId((int) record.get("id"));
-
-			Date sqlDate = (Date) record.get("dueDate");
-			LocalDate localdate = sqlDate.toLocalDate();
-			entformItem.setDueDate(localdate);
-			entformItem.setTaskType((String) record.get("taskType"));
-			entformItem.setTaskName((String) record.get("taskName"));
-			entformItem.setComment((String) record.get("comment"));
-
-			dataList.add(entformItem);
+		if (!rows.isEmpty()) {
+			Map<String, Object> userData = rows.get(0);
+			UserEntForm user = new UserEntForm();
+			user.setId((int) userData.get("id"));
+			user.setLogId((String) userData.get("logId"));
+			user.setPass((String) userData.get("pass"));
+			return user;
 		}
-		return dataList;
+
+		return null;
 	}
 
 	public List<UserEntForm> getAll2() {
@@ -69,6 +55,38 @@ public class SampleDao {
 			userdataList.add(userentformItem);
 		}
 		return userdataList;
+	}
+
+	public void insertDb2(UserEntForm userentform) {
+		db.update("INSERT INTO login(logId,pass) VALUES(?,?)", userentform.getLogId(), userentform.getPass());
+	}
+
+	//タスク入力
+	public void insertDb(EntForm entform) {
+		db.update("INSERT INTO task(taskType,dueDate,taskName,comment) VALUES(?,?,?,?)", entform.getTaskType(),
+				entform.getDueDate(), entform.getTaskName(), entform.getComment());
+	}
+
+//一覧
+	public List<EntForm> getAll() {
+		List<Map<String, Object>> queryResult = db.queryForList("SELECT * FROM task");
+		List<EntForm> dataList = new ArrayList<EntForm>();
+
+		for (Map<String, Object> record : queryResult) {
+			EntForm entformItem = new EntForm();
+
+			entformItem.setId((int) record.get("id"));
+
+			Date sqlDate = (Date) record.get("dueDate");
+			LocalDate localdate = sqlDate.toLocalDate();
+			entformItem.setDueDate(localdate);
+			entformItem.setTaskType((String) record.get("taskType"));
+			entformItem.setTaskName((String) record.get("taskName"));
+			entformItem.setComment((String) record.get("comment"));
+
+			dataList.add(entformItem);
+		}
+		return dataList;
 	}
 
 	//削除
@@ -125,6 +143,7 @@ public class SampleDao {
 		return dataList;
 	}
 
+	//日付順に並べ替え
 	public List<EntForm> getSort(String sort) {
 		List<Map<String, Object>> queryResult = db.queryForList("SELECT * FROM task");
 		List<EntForm> dataList = new ArrayList<EntForm>();
@@ -153,7 +172,8 @@ public class SampleDao {
 		}
 		return dataList;
 	}
-	
+
+	//タスク種類検索画面日付順
 	public List<EntForm> getShSort(String sort, String taskType) {
 
 		List<Map<String, Object>> queryResult = db.queryForList("SELECT * FROM task");
@@ -183,21 +203,35 @@ public class SampleDao {
 		return dataList;
 	}
 
-	
-	public static UserEntForm findByUsername(String logId) {
-	    String sql = "SELECT * FROM login WHERE logId = ?";
-	    List<Map<String, Object>> rows = db.queryForList(sql, logId);
+	//	期日検索
+	public List<EntForm> getDateSearch(String sort, String start, String end) {
+		List<Map<String, Object>> queryResult = db.queryForList("SELECT * FROM task WHERE dueDate BETWEEN ? AND ?",
+				start, end);
+		List<EntForm> dataList = new ArrayList<EntForm>();
+		if (sort.equals("ASC")) {
+			queryResult = db.queryForList("SELECT * FROM task WHERE dueDate BETWEEN ? AND ? ORDER BY dueDate ASC",
+					start, end);
+			System.out.println("昇順ソート");
+		}
+		if (sort.equals("DESC")) {
+			queryResult = db.queryForList("SELECT * FROM task WHERE dueDate BETWEEN ? AND ? ORDER BY dueDate DESC",
+					start, end);
+			System.out.println("降順ソート");
+		}
+		for (Map<String, Object> record : queryResult) {
+			EntForm entformItem = new EntForm();
 
-	    if (!rows.isEmpty()) {
-	        Map<String, Object> userData = rows.get(0);
-	        UserEntForm user = new UserEntForm();
-	        user.setId((int) userData.get("id"));
-	        user.setLogId((String) userData.get("logId"));
-	        user.setPass((String) userData.get("pass"));
-	        return user;
-	    }
+			entformItem.setId((int) record.get("id"));
+			Date sqlDate = (Date) record.get("dueDate");
+			LocalDate localDate = sqlDate.toLocalDate();
+			entformItem.setDueDate(localDate);
+			entformItem.setTaskType((String) record.get("taskType"));
+			entformItem.setTaskName((String) record.get("taskName"));
+			entformItem.setComment((String) record.get("comment"));
 
-	    return null;
+			dataList.add(entformItem);
+		}
+		return dataList;
 	}
 
 }

@@ -21,6 +21,54 @@ import com.example.demo.entity.UserEntForm;
 @Controller
 public class TaskController {
 
+	@RequestMapping("/todo")
+	public String todo(Model model) {
+		model.addAttribute("title", "todoリスト");
+		return "todo";
+	}
+	
+//	ログイン画面
+	@GetMapping("/login")
+	public String showLoginForm(Model model) {
+		model.addAttribute("title", "ログイン");
+		return "login";
+	}
+
+	@PostMapping("/login")
+	public String login(Model model, @RequestParam("logId") String LogId,
+			@RequestParam("pass") String pass) {
+		UserEntForm user = SampleDao.findByUsername(LogId);
+		model.addAttribute("title", "ログイン");
+
+		if (user != null && user.getPass().equals(pass)) {
+			// ログイン成功の処理
+			model.addAttribute("result", "ログイン成功");
+			return "redirect:/view"; // タスク管理画面にリダイレクト
+		} else {
+			// ログイン失敗の処理
+			model.addAttribute("result", "ユーザー名またはパスワードが間違っています");
+			return "login";
+		}
+	}
+	
+//	新規登録
+	@RequestMapping("/signup")
+	public String signup(Model model, UserInput userinput) {
+		model.addAttribute("title", "todoリスト");
+		return "signup";
+	}
+
+//	登録完了画面
+	@RequestMapping("/register")
+	public String complete(Model model, UserInput userinput) {
+		UserEntForm userentform = new UserEntForm();
+		userentform.setLogId(userinput.getLogId());
+		userentform.setPass(userinput.getPass());
+		sampledao.insertDb2(userentform);
+		return "register";
+	}
+	
+//	タスク入力
 	@RequestMapping("/form")
 	public String form(Model model, Input input) {
 		model.addAttribute("title", "todoリスト");
@@ -38,11 +86,7 @@ public class TaskController {
 		return "confirm";
 	}
 
-	@RequestMapping("/signup")
-	public String signup(Model model, UserInput userinput) {
-		model.addAttribute("title", "todoリスト");
-		return "signup";
-	}
+
 
 	private final SampleDao sampledao;
 
@@ -62,37 +106,6 @@ public class TaskController {
 		return "complete";
 	}
 
-	@RequestMapping("/register")
-	public String complete(Model model, UserInput userinput) {
-		UserEntForm userentform = new UserEntForm();
-		userentform.setLogId(userinput.getLogId());
-		userentform.setPass(userinput.getPass());
-		sampledao.insertDb2(userentform);
-		return "register";
-	}
-	
-	@GetMapping("/login")
-    public String showLoginForm(Model model) {
-        model.addAttribute("title", "ログイン");
-        return "login";
-    }
-
-    @PostMapping("/login")
-    public String login(Model model, @RequestParam("logId") String LogId,
-            @RequestParam("pass") String pass) {
-        UserEntForm user = SampleDao.findByUsername(LogId);
-        model.addAttribute("title", "ログイン");
-
-        if (user != null && user.getPass().equals(pass)) {
-            // ログイン成功の処理
-            model.addAttribute("result", "ログイン成功");
-            return "redirect:/view"; // タスク管理画面にリダイレクト
-        } else {
-            // ログイン失敗の処理
-            model.addAttribute("result", "ユーザー名またはパスワードが間違っています");
-            return "login";
-        }
-    }
 
 	//	全件表示
 	@RequestMapping("/view")
@@ -116,12 +129,12 @@ public class TaskController {
 		return "view";
 	}
 
-		//削除
-		@RequestMapping("/del/{id}")
-		public String destory(@PathVariable Long id) {
-			sampledao.deleteSample(id);
-			return "redirect:/view";
-		}
+	//削除
+	@RequestMapping("/del/{id}")
+	public String destory(@PathVariable Long id) {
+		sampledao.deleteSample(id);
+		return "redirect:/view";
+	}
 
 	//編集画面の表示
 	@RequestMapping("/edit/{id}")
@@ -142,13 +155,13 @@ public class TaskController {
 		model.addAttribute("title", "一覧ページ");
 		return "view";
 	}
-	
+
 	@RequestMapping("/shsort")
-	public String ShSort(@RequestParam("sort") String sort,@RequestParam("word")String search, Model model) {
-//		sort="ASC";
-//		search="プロジェクトB";
-		System.out.println(sort+search);
-		List<EntForm> list = sampledao.getShSort(sort,search);
+	public String ShSort(@RequestParam("sort") String sort, @RequestParam("word") String search, Model model) {
+		//		sort="ASC";
+		//		search="プロジェクトB";
+		System.out.println(sort + search);
+		List<EntForm> list = sampledao.getShSort(sort, search);
 		model.addAttribute("dbList", list);
 		model.addAttribute("title", "タスク検索結果");
 		model.addAttribute("word", "検索タスク「" + search + "」");
@@ -184,6 +197,33 @@ public class TaskController {
 		model.addAttribute("title", "タスク検索結果");
 		model.addAttribute("word", "検索タスク「" + searchTerm + "」");
 		return "search";
+	}
+
+	//日付検索
+	@RequestMapping("/datesearch")
+	public String DSSort(@RequestParam("sort") String sort, @RequestParam("start") String start,
+			@RequestParam("end") String end, Model model) {
+		System.out.println(sort + start + end);
+		List<EntForm> list = sampledao.getDateSearch(sort, start, end);
+		LocalDate nowDate = LocalDate.now();
+		for (EntForm entForm : list) {
+			LocalDate dueDate = entForm.getDueDate();
+
+			if (nowDate.isEqual(dueDate)) {
+				System.out.println("黄色表示");
+			} else if (nowDate.isAfter(dueDate)) {
+				System.out.println("赤色表示");
+			} else {
+				System.out.println("何もしない");
+			}
+		}
+		model.addAttribute("nowDate", nowDate);
+		model.addAttribute("dbList", list);
+		model.addAttribute("title", "タスク検索結果");
+		model.addAttribute("word", "検索期日「" + start + " ～ " + end + "」");
+		model.addAttribute("start", start);
+		model.addAttribute("end", end);
+		return "datesearch";
 	}
 
 }
