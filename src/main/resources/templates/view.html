@@ -17,6 +17,7 @@
 		</p>
 		<input type="submit" value="検索">
 	</form>
+	
 	<form method="get" action="/datesearch">
 		<input type="hidden" name="sort" value="">
 		<p>
@@ -26,8 +27,11 @@
 		</p>
 		<input type="submit" value="検索">
 	</form>
-	<button type="submit" name="sort" value="ASC">昇順</button>
-	<button type="submit" name="sort" value="DESC">降順</button>
+	
+	<form method="get" action="#" th:action="@{/sort}">
+		<button type="submit" name="sort" value="ASC">昇順</button>
+		<button type="submit" name="sort" value="DESC">降順</button>
+	</form>
 
 	<table>
 		<tr>

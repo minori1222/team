@@ -151,6 +151,19 @@ public class TaskController {
 	public String Sort(@RequestParam("sort") String sort, Model model) {
 		System.out.println(sort);
 		List<EntForm> list = sampledao.getSort(sort);
+		LocalDate nowDate = LocalDate.now();
+		for (EntForm entForm : list) {
+			LocalDate dueDate = entForm.getDueDate();
+
+			if (nowDate.isEqual(dueDate)) {
+				System.out.println("黄色表示");
+			} else if (nowDate.isAfter(dueDate)) {
+				System.out.println("赤色表示");
+			} else {
+				System.out.println("何もしない");
+			}
+		}
+		model.addAttribute("nowDate", nowDate);
 		model.addAttribute("dbList", list);
 		model.addAttribute("title", "一覧ページ");
 		return "view";
@@ -162,6 +175,19 @@ public class TaskController {
 		//		search="プロジェクトB";
 		System.out.println(sort + search);
 		List<EntForm> list = sampledao.getShSort(sort, search);
+		LocalDate nowDate = LocalDate.now();
+		for (EntForm entForm : list) {
+			LocalDate dueDate = entForm.getDueDate();
+
+			if (nowDate.isEqual(dueDate)) {
+				System.out.println("黄色表示");
+			} else if (nowDate.isAfter(dueDate)) {
+				System.out.println("赤色表示");
+			} else {
+				System.out.println("何もしない");
+			}
+		}
+		model.addAttribute("nowDate", nowDate);
 		model.addAttribute("dbList", list);
 		model.addAttribute("title", "タスク検索結果");
 		model.addAttribute("word", "検索タスク「" + search + "」");
@@ -192,6 +218,19 @@ public class TaskController {
 	@RequestMapping("/search")
 	public String Search(@RequestParam("search") String searchTerm, Model model) {
 		List<EntForm> list = sampledao.getSearch(searchTerm);
+		LocalDate nowDate = LocalDate.now();
+		for (EntForm entForm : list) {
+			LocalDate dueDate = entForm.getDueDate();
+
+			if (nowDate.isEqual(dueDate)) {
+				System.out.println("黄色表示");
+			} else if (nowDate.isAfter(dueDate)) {
+				System.out.println("赤色表示");
+			} else {
+				System.out.println("何もしない");
+			}
+		}
+		model.addAttribute("nowDate", nowDate);
 		model.addAttribute("search", searchTerm);
 		model.addAttribute("dbList", list);
 		model.addAttribute("title", "タスク検索結果");

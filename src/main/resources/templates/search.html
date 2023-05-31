@@ -29,7 +29,10 @@
 			<td th:text="${res.id}">1</td>
 			<td th:text="${res.taskType}">タスクの種類</td>
 			<td th:text="${res.taskName}">タスク</td>
-			<td th:text="${res.dueDate}">期日</td>
+			<td
+				th:class="${res.dueDate.isEqual(nowDate) ? 'yellow' : (res.dueDate.isBefore(nowDate) ? 'red' : '')}">
+				<span th:text="${res.dueDate}">期日</span>
+			</td>
 			<td th:text="${res.comment}">コメント</td>
 			<td>
 				<form th:action="@{/edit/{id}(id=${res.id})}">
