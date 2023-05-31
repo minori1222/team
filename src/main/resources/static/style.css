@@ -1,116 +1,173 @@
 @charset "UTF-8";
+
+/*全体の位置調整*/
 body {
 	text-align: center;
 	font-family: sans-serif;
-	font-size: large;
-	background-color: #ffffff;
+	font-size: 25px;
+	background-color: rgb(241, 254, 250);
 }
-
 
 h1 {
-	color: #262C55;
-	background-color: #B1E9CD;
-}
-
-
-.botan {
-	background-image: linear-gradient(0deg, #a7d9f5, #eaf6fd);
-	/* グラデーション */
-	border: 1px solid #3c7fb1;
-	/* 枠線 */
-	border-radius: 0.3em;
-	/* 角丸 */
-}
-
-.botan:hover {
-	/* マウスが上に載ったとき */
-	background-image: linear-gradient(0deg, #68d3db, #e5f4fc);
-	border: 1px solid #2c628b;
-}
-
-
-.error{
-	color: red;
-	font-size: small;
-}
-
-.yoko {
-	display: flex;
-	align-items: center;
-	justify-content: center;
-}
-
-
-table {
-	border-collapse: collapse;
-    margin: auto;
-
-}
-
-table th {
-	background: #54839F;
-	border: solid 1px #ccc;
-	color: #fff;
-	padding: 10px;
-}
-
-table td {
-	border: solid 1px #ccc;
-	padding: 10px;
-}
-
-.edit {
-	color: #54839F;
-	background-color: #B4DE85;
-	border: none;
-}
-
-.delete {
-	color: #54839F;
-	background-color: #B1E9CD;
-	border: #B1E9CD;
-}
-
-/*h1 {
-	color: #262C55;
+	color: #ffffff;
+	background-color: #20b2aa;
 }
 
 h2 {
 	color: #54839F;
 }
 
+/*入力枠サイズ*/
+.box{
+font-size: 20px;
+}
+
+/*ボタンデザイン*/
+.botan {
+	background-image: linear-gradient(0deg, rgb(78, 237, 205), rgb(234, 253, 250)); 	/* グラデーション */
+	border: 1pxsolidrgb(61, 177, 149); 	/* 枠線 */
+	border-radius: 0.3em; 	/* 角丸 */
+	width: 200px;
+	padding: 10px;
+	box-sizing: border-box;
+	cursor: pointer;
+	font-size: 15px;
+}
+
+/* マウスが上に載ったとき */
+.botan:hover {
+	background-image: linear-gradient(0deg, rgb(35, 146, 101), rgb(213, 249, 236));
+	border: 1px solid #2c628b;
+}
+
+/*ボタンデザイン2*/
+.botan2 {
+	background-image: linear-gradient(0deg, rgb(78, 237, 205), rgb(234, 253, 250)); 	/* グラデーション */
+	border: 1pxsolidrgb(61, 177, 149); 	/* 枠線 */
+	border-radius: 0.3em; 	/* 角丸 */
+}
+
+/* マウスが上に載ったとき */
+.botan2:hover {
+	background-image: linear-gradient(0deg, rgb(35, 146, 101), rgb(213, 249, 236));
+	border: 1px solid #2c628b;
+}
+
+/*エラー文表示*/
+.error {
+	color: red;
+	font-size: medium;
+}
+
+/*横並びのボタン*/
+.yoko {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	margin: auto;
+}
+
+/*横並びのボタン*/
+.yoko2 {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	margin: auto;
+	justify-content: space-evenly;
+}
+
+/*テーブルデザイン*/
 table {
+	text-align: left;
 	border-collapse: collapse;
+	margin: auto;
 }
 
 table th {
-	background: #54839F;
-	border: solid 1px #ccc;
+	background: #20b2aa;
+	border: solid 5px #ccc;
 	color: #fff;
 	padding: 10px;
 }
 
 table td {
-	border: solid 1px #ccc;
+	border: solid 5px #ccc;
 	padding: 10px;
 }
 
+/*編集ボタンデザイン*/
 .edit {
-	color: #54839F;
-	background-color: #B4DE85;
+	color: #ffffff;
+	background-color: rgb(0, 101, 162);
 	border: none;
 }
 
+/*削除ボタンデザイン*/
 .delete {
-	color: #54839F;
-	background-color: #B1E9CD;
-	border:#B1E9CD;
-}*/
+	color: #ffffff;
+	background-color: rgb(137, 39, 39);
+	border: #B1E9CD;
+}
 
 .yellow {
-    background-color: yellow;
+	background-color: rgb(255, 210, 2);
 }
 
 .red {
-    background-color: red;
+	background-color: rgb(255, 34, 34);
+}
+
+/*ポップアップ表示*/
+.open {
+	cursor: pointer;
+	/* マウスオーバーでカーソルの形状を変えることで、クリックできる要素だとわかりやすいように */
+}
+
+#pop-up {
+	display: none;
+	/* label でコントロールするので input は非表示に */
+}
+
+.overlay {
+	display: none;
+	/* input にチェックが入るまでは非表示に */
+}
+
+#pop-up:checked+.overlay {
+	display: block;
+	z-index: 9999;
+	background-color: #00000070;
+	position: fixed;
+	width: 100%;
+	height: 100vh;
+	top: 0;
+	left: 0;
+}
+
+.window {
+	width: 90vw;
+	max-width: 300px;
+	height: 150px;
+	background-color: #ffffff;
+	border-radius: 6px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	position: fixed;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+}
+
+.text {
+	font-size: 18px;
+	margin: 0;
+}
+
+.close {
+	cursor: pointer;
+	position: absolute;
+	top: 4px;
+	right: 4px;
+	font-size: 20px;
 }

@@ -3,17 +3,18 @@ package com.example.demo.task;
 import java.time.LocalDate;
 
 import jakarta.validation.constraints.NotBlank;
-
+import jakarta.validation.constraints.NotNull;
 
 public class Input {
+	
 	@NotBlank(message ="文字を入力してください")
 	private String taskName;
 	
 	private String taskType;
   
-	@NotBlank(message ="文字を入力してください")
 	private String comment;
 	
+	@NotNull(message="期日を選択してください")
 	private static LocalDate dueDate;
 
 	public Input() {

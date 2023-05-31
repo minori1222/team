@@ -78,11 +78,11 @@ public class TaskController {
 	@RequestMapping("/confirm")
 	public String confirm(@Validated Input input, BindingResult result, Model model) {
 		if (result.hasErrors()) {
-			model.addAttribute("title", "入力ページ");
+			model.addAttribute("title", "新規タスク");
 			return "form";
 		}
 
-		model.addAttribute("title", "確認ページ");
+		model.addAttribute("title", "入力内容確認");
 		return "confirm";
 	}
 
