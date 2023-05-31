@@ -3,9 +3,9 @@
 
 <head>
 
-<title>Hello</title>
-<meta charset="utf-8" />
-<link rel="stylesheet" th:href="@{/style.css}">
+	<title>ToDoリスト</title>
+	<meta charset="utf-8" />
+	<link rel="stylesheet" th:href="@{/style.css}">
 
 </head>
 
@@ -14,25 +14,26 @@
 	<form method="get" action="/search">
 		<p>
 			タスクの種類検索：<input type="text" name="search">
+			<input type="submit" value="検索" class="botan2">
 		</p>
-		<input type="submit" value="検索">
 	</form>
 
 	<form method="get" action="/datesearch">
 		<input type="hidden" name="sort" value="">
 		<p>
-			期日検索：<input type="date" name="start" value="2023-05-27"
-				th:value="*{start}"> ～ <input type="date" name="end"
+			期日検索：<input type="date" name="start" value="2023-05-27" th:value="*{start}"> ～ <input type="date" name="end"
 				value="2023-08-27" th:value="*{end}">
+				<input type="submit" value="検索" class="botan2">
 		</p>
-		<input type="submit" value="検索">
 	</form>
+
 
 	<form method="get" action="#" th:action="@{/sort}">
-		<button type="submit" name="sort" value="ASC">昇順</button>
-		<button type="submit" name="sort" value="DESC">降順</button>
+		<button type="submit" name="sort" value="ASC"class="botan2">昇順</button>
+		<button type="submit" name="sort" value="DESC"class="botan2">降順</button>
 	</form>
 
+<p></p>
 	<table>
 		<tr>
 			<th></th>
@@ -51,8 +52,10 @@
 				</form>
 			</td>
 			<td th:text="${res.id}">1</td>
+
 			<td
 				th:class="${res.dueDate.isEqual(nowDate) ? 'yellow' : (res.dueDate.isBefore(nowDate) ? 'red' : '')}">
+
 				<span th:text="${res.dueDate}">期日</span>
 			</td>
 			<td th:text="${res.taskType}">タスクの種類</td>
@@ -66,15 +69,31 @@
 				</form>
 			</td>
 			<td>
-				<form th:action="@{/del/{id}(id=${res.id})}">
-					<input type="submit" class="delete" value="削除" />
-				</form>
+				<label class="open" for="pop-up"><button class="delete">削除</button></label>
+				<input type="checkbox" id="pop-up">
+				<div class="overlay">
+					<div class="window">
+						<label class="close" for="pop-up">×</label>
+						<h4>本当に削除しますか</h4>
+						<form th:action="@{/del/{id}(id=${res.id})}">
+							<input type="submit" class="delete" value="削除" />
+						</form>
+					</div>
+				</div>
 			</td>
 		</tr>
 	</table>
+	<div class="yoko2">
 	<p>
-		<a href="/form" th:href="@{/form}">タスク追加</a>
+		<a href="/form" th:href="@{/form}">
+			<button class="botan2">新規タスク</button>
+		</a>
 	</p>
+	<a href="http://localhost:8081/h2-console" target="_blank">
+		<button class="botan2">H2コンソールを開く</button>
+	</a>
+	</div>
+
 </body>
 
 </html>

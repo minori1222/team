@@ -2,9 +2,11 @@
 <html xmlns:th="http://www.thymeleaf.org">
 
 <head>
-<title>Hello</title>
-<meta charset="utf-8" />
-<link rel="stylesheet" th:href="@{/style.css}">
+
+	<title>ToDoリスト</title>
+	<meta charset="utf-8" />
+	<link rel="stylesheet" th:href="@{/style.css}">
+
 </head>
 
 <body>
@@ -14,45 +16,63 @@
 	<form method="get" action="#" th:action="@{/shsort}">
 		<input type="hidden" name="word" th:value="*{search}">
 		<button type="submit" name="sort" value="ASC">昇順</button>
-		<button type="submit" name="sort" value="DESC">降順</button>
-		<table>
-			<tr>
-				<th>id</th>
-				<th>期日</th>
-				<th>タスクの種類</th>
-				<th>タスク</th>
-				<th>コメント</th>
-				<th>編集</th>
-				<th>削除</th>
-			</tr>
-			<tr th:each="res : ${dbList}">
-				<td th:text="${res.id}">1</td>
-				<td
-					th:class="${res.dueDate.isEqual(nowDate) ? 'yellow' : (res.dueDate.isBefore(nowDate) ? 'red' : '')}">
-					<span th:text="${res.dueDate}">期日</span>
-				</td>
-				<td th:text="${res.taskType}">タスクの種類</td>
-				<td th:text="${res.taskName}">タスク</td>
 
-				<td th:text="${res.comment}">コメント</td>
-				<td>
-					<form th:action="@{/edit/{id}(id=${res.id})}">
-						<input type="submit" class="edit" value="編集">
-					</form>
-				</td>
-				<td>
-					<form th:action="@{/del/{id}(id=${res.id})}">
-						<input type="submit" class="delete" value="削除" />
-					</form>
-				</td>
-			</tr>
-		</table>
-		<p>
-			<a href="/form" th:href="@{/view}">一覧ページへ</a>
-		</p>
-		<p>
-			<a href="/form" th:href="@{/form}">タスク追加</a>
-		</p>
+		<button type="submit" name="sort" value="DESC">降順</button>	
+	<table>
+		<tr>
+			<th>完了</th>
+			<th>id</th><th>期日</th>
+			<th>タスクの種類</th>
+			<th>タスク</th>
+			
+			<th>コメント</th>
+			<th>編集</th>
+			<th>削除</th>
+		</tr>
+		<tr th:each="res : ${dbList}">
+			<td>
+				<form th:action="@{/comp/{id}}">
+					<input type="checkbox" class="check" />
+				</form>
+			</td>
+			<td th:text="${res.id}">1</td><td th:class="${res.dueDate.isEqual(nowDate) ? 'yellow' : (res.dueDate.isBefore(nowDate) ? 'red' : '')}">
+				<span th:text="${res.dueDate}">期日</span>
+			</td>
+			<td th:text="${res.taskType}">タスクの種類</td>
+			<td th:text="${res.taskName}">タスク</td>
+			
+			<td th:text="${res.comment}">コメント</td>
+			<td>
+				<form th:action="@{/edit/{id}(id=${res.id})}">
+					<input type="submit" class="edit" value="編集">
+				</form>
+			</td>
+			<td>
+				<label class="open" for="pop-up"><button class="delete">削除</button></label>
+				<input type="checkbox" id="pop-up">
+				<div class="overlay">
+					<div class="window">
+						<label class="close" for="pop-up">×</label>
+						<h4>本当に削除しますか</h4>
+						<form th:action="@{/del/{id}(id=${res.id})}">
+					<input type="submit" class="delete" value="削除" />
+				</form>
+					</div>
+				</div>
+			</td>
+		</tr>
+	</table>
+	<p>
+		<a href="/form" th:href="@{/view}">
+			<button class="botan">タスク一覧</button>
+		</a>
+	</p>
+	<p>
+		<a href="/form" th:href="@{/form}">
+			<button class="botan">新規タスク</button>
+		</a>
+	</p>
+
 </body>
 
 </html>

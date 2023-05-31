@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-<title>Hello</title>
+<title>ToDoリスト</title>
 <meta charset="utf-8" />
 <link rel="stylesheet" th:href="@{/style.css}">
 </head>
@@ -14,16 +14,16 @@
 					th:value="*{id}">
 			</p>
 			<p>
-				タスク:<input type="text" name="taskName" th:value="*{taskName}">
+				タスク:<input type="text" name="taskName" th:value="*{taskName}" class="box">
 			</p>
 			<p>
-				タスクの種類:<input type="text" name="taskType" th:value="*{taskType}">
+				タスクの種類:<input type="text" name="taskType" th:value="*{taskType}" class="box">
 			</p>
 			<p>
-				期日:<input type="text" name="dueDate" th:value="*{dueDate}">
+				期日:<input type="text" name="dueDate" th:value="*{dueDate}" class="box">
 			</p>
 			<p>
-				コメント:<input type="text" name="comment" th:value="*{comment}">
+				コメント:<input type="text" name="comment" th:value="*{comment}" class="box">
 			</p>
 			<input type="submit" value="更新" class="botan">
 		</form>
